@@ -11,8 +11,8 @@
      */
 
     /**
-     * Yoast SEO Plugin
-     * Copyright (C) 2008-2016, Yoast BV - support@yoast.com
+     * Instagram Embed Photo WP
+     * Copyright (C) 2017, Leandro Nix - nixlovemi@gmail.com
      *
      * This program is free software: you can redistribute it and/or modify
      * it under the terms of the GNU General Public License as published by
