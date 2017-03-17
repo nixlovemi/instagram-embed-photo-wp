@@ -157,6 +157,7 @@
 
     }
 
+    // init the wordpress hooks
     add_shortcode('instagram_embed_photo_wp', 'nixInstagramEmbedPhotoWp::init');
     add_action('admin_menu', 'nixInstagramEmbedPhotoWp::initAdminPage');
     add_action('admin_init', 'nixInstagramEmbedPhotoWp::initSettings');
