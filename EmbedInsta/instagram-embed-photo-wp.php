@@ -51,9 +51,10 @@
                 <h2>How do I use this plugin?</h2>
                 <p>For this plugin to work correctly you just need to tell me two things:</p>
                 <p><strong>Instagram User Id:</strong> your Instagram user ID. If you don't know how to get this info, you could use this <a href="https://smashballoon.com/instagram-feed/find-instagram-user-id/" target="_blank">link</a> to get it.</p>
-                <p><strong>Access Token:</strong> a little trickier to get than user ID. I believe with <a href="<?php echo $pdfTokenPath; ?>" target="_blank">this guide</a> you'll get this information.</p>
+                <p><strong>Access Token:</strong> a little trickier to get than user ID. I believe that with <a href="<?php echo $pdfTokenPath; ?>" target="_blank">this guide</a> you'll get this information.</p>
                 <p>After those information were filled, just use the shortcode [instagram_embed_photo_wp] anywhere you want the embed shows up.</p>
                 <p>If you find any bug or want to make a suggestion, please email me: nixlovemi@gmail.com</p>
+                <p>Anything else you may need could be find in the <a href="https://wpembedphoto.000webhostapp.com/" target="_blank">plugin's website</a>.</p>
             </div>
 
             <form method="post" action="options.php">
