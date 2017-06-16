@@ -1,17 +1,17 @@
 <?php
     /**
-     * Plugin Name: Instagram Embed Photo WP
-     * Version: 1.0 (alpha)
+     * Plugin Name: Social Embed Photo WP
+     * Version: 1.0
      * Plugin URI: https://wpembedphoto.000webhostapp.com/
      * Description: A plugin who creates an embed instagram photo container in a few simple steps.
      * Author: Leandro Nix
      * Author URI: https://about.me/leandro.nix
-     * Text Domain: Instagram Embed
+     * Text Domain: Social Embed
      * License: GPL v3
      */
 
     /**
-     * Instagram Embed Photo WP
+     * Social Embed Photo WP
      * Copyright (C) 2017, Leandro Nix - nixlovemi@gmail.com
      *
      * This program is free software: you can redistribute it and/or modify
@@ -28,38 +28,37 @@
      * along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */
 
-    class nixInstagramEmbedPhotoWp {
-        // plugin folder: instagram-embed-photo-wp
+    class nixSocialEmbedPhotoWp {
+        // plugin folder: social-embed-photo-wp
 
         public static function init(){
-            $InstagramEmbed = new nixInstagramEmbedPhotoWp();
-            $InstagramEmbed->getEmbedHTML();
+            $SocialEmbed = new nixSocialEmbedPhotoWp();
+            $SocialEmbed->getEmbedHTML();
         }
 
         public static function initAdminPage(){
-            add_menu_page('Settings - Instagram Embed', 'Instagram Embed Settings', 'administrator', 'instagram-embed-photo-wp-settings', 'nixInstagramEmbedPhotoWp::showAdminPage', 'dashicons-admin-generic');
+            add_menu_page('Settings - Social Embed', 'Social Embed Settings', 'administrator', 'social-embed-photo-wp-settings', 'nixSocialEmbedPhotoWp::showAdminPage', 'dashicons-admin-generic');
         }
 
         public static function showAdminPage(){
-            $pdfTokenPath = plugins_url("instagram-embed-photo-wp/How-create-an-instagram-app-and-get-the-access-token.pdf");
+            $pdfTokenPath = plugins_url("social-embed-photo-wp/How-create-an-instagram-app-and-get-the-access-token.pdf");
             ?>
 
             <div class="wrap">
-            <h2>Instagram Embed Photo WP Settings</h2>
+            <h2>Social Embed Photo WP Settings</h2>
 
             <div class="card pressthis">
                 <h2>How do I use this plugin?</h2>
                 <p>For this plugin to work correctly you just need to tell me two things:</p>
                 <p><strong>Instagram User Id:</strong> your Instagram user ID. If you don't know how to get this info, you could use this <a href="https://smashballoon.com/instagram-feed/find-instagram-user-id/" target="_blank">link</a> to get it.</p>
-                <p><strong>Access Token:</strong> a little trickier to get than user ID. I believe that with <a href="<?php echo $pdfTokenPath; ?>" target="_blank">this guide</a> you'll get this information.</p>
-                <p>After those information were filled, just use the shortcode [instagram_embed_photo_wp] anywhere you want the embed shows up.</p>
+                <p><strong>Access Token:</strong> a little trickier to get than user ID. I believe with <a href="<?php echo $pdfTokenPath; ?>" target="_blank">this guide</a> you'll get this information.</p>
+                <p>After those information were filled, just use the shortcode [social_embed_photo_wp] anywhere you want the embed shows up.</p>
                 <p>If you find any bug or want to make a suggestion, please email me: nixlovemi@gmail.com</p>
-                <p>Anything else you may need could be find in the <a href="https://wpembedphoto.000webhostapp.com/" target="_blank">plugin's website</a>.</p>
             </div>
 
             <form method="post" action="options.php">
-                <?php settings_fields( 'instagram-embed-photo-wp-group' ); ?>
-                <?php do_settings_sections( 'instagram-embed-photo-wp-group' ); ?>
+                <?php settings_fields( 'social-embed-photo-wp-group' ); ?>
+                <?php do_settings_sections( 'social-embed-photo-wp-group' ); ?>
                 <table class="form-table">
                     <tr valign="top">
                     <th scope="row">Instagram User ID</th>
@@ -81,8 +80,8 @@
         }
 
         public static function initSettings(){
-            register_setting( 'instagram-embed-photo-wp-group', 'insta_user_id' );
-            register_setting( 'instagram-embed-photo-wp-group', 'insta_token' );
+            register_setting( 'social-embed-photo-wp-group', 'insta_user_id' );
+            register_setting( 'social-embed-photo-wp-group', 'insta_token' );
         }
 
         private function curlExists(){
@@ -96,9 +95,9 @@
             }
 
             if (@session_id() == "") @session_start();
-            $arrInstagram = $_SESSION["arrInstagram"];
-            
-            if(!is_array($arrInstagram) || count($arrInstagram) <= 0){
+            $arrSocial = $_SESSION["arrSocial"];
+
+            if(!is_array($arrSocial) || count($arrSocial) <= 0){
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -108,19 +107,19 @@
 
                 $arrResp = json_decode($result, true);
 
-                $urlImgInstagram = (isset($arrResp["data"][0]["images"]["standard_resolution"]["url"])) ? $arrResp["data"][0]["images"]["standard_resolution"]["url"] : "";
-                $imgInstagram = (isset($arrResp["data"][0]["link"])) ? $arrResp["data"][0]["link"]: "";
-                $txtInstagram = (isset($arrResp["data"][0]["caption"]["text"])) ? $arrResp["data"][0]["caption"]["text"]: "";
+                $urlImgSocial = (isset($arrResp["data"][0]["images"]["standard_resolution"]["url"])) ? $arrResp["data"][0]["images"]["standard_resolution"]["url"] : "";
+                $imgSocial = (isset($arrResp["data"][0]["link"])) ? $arrResp["data"][0]["link"]: "";
+                $txtSocial = (isset($arrResp["data"][0]["caption"]["text"])) ? $arrResp["data"][0]["caption"]["text"]: "";
 
-                $arrInstagram = array();
-                $arrInstagram["urlImgInstagram"] = $urlImgInstagram;
-                $arrInstagram["imgInstagram"] = $imgInstagram;
-                $arrInstagram["txtInstagram"] = $txtInstagram;
+                $arrSocial = array();
+                $arrSocial["urlImgSocial"] = $urlImgSocial;
+                $arrSocial["imgSocial"] = $imgSocial;
+                $arrSocial["txtSocial"] = $txtSocial;
 
-                $_SESSION["arrInstagram"] = $arrInstagram;
+                $_SESSION["arrSocial"] = $arrSocial;
             }
 
-            return $_SESSION["arrInstagram"];
+            return $_SESSION["arrSocial"];
         }
 
         public function getEmbedHTML(){
@@ -128,22 +127,22 @@
             $instaToken = get_option("insta_token");
             $instaArrayInfo = $this->getArrayInstaInfo($instaUserId, $instaToken);
 
-            $urlImgInstagram = (isset($instaArrayInfo["urlImgInstagram"])) ? $instaArrayInfo["urlImgInstagram"]: "";
-            $imgInstagram = (isset($instaArrayInfo["imgInstagram"])) ? $instaArrayInfo["imgInstagram"]: "";
-            $txtInstagram = (isset($instaArrayInfo["txtInstagram"])) ? $instaArrayInfo["txtInstagram"]: "";
+            $urlImgSocial = (isset($instaArrayInfo["urlImgSocial"])) ? $instaArrayInfo["urlImgSocial"]: "";
+            $imgSocial = (isset($instaArrayInfo["imgSocial"])) ? $instaArrayInfo["imgSocial"]: "";
+            $txtSocial = (isset($instaArrayInfo["txtSocial"])) ? $instaArrayInfo["txtSocial"]: "";
 
-            if($urlImgInstagram == "" || $imgInstagram == ""){
+            if($urlImgSocial == "" || $imgSocial == ""){
                 die("No information found. Check the settings on wp-admin!");
             }
 
             $html = "<blockquote class='instagram-media' data-instgrm-captioned data-instgrm-version='7' style=' background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);'>
                         <div style='padding:8px;'>
                             <div style=' background:#F8F8F8; line-height:0; margin-top:40px; padding:62.5% 0; text-align:center; width:100%;'>
-                                <div style=' background:url($urlImgInstagram); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;'></div>
+                                <div style=' background:url($urlImgSocial); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;'></div>
                             </div>
                             <p style=' margin:8px 0 0 0; padding:0 4px;'>
-                                <a href='$imgInstagram' style=' color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;' target='_blank'>
-                                    $txtInstagram
+                                <a href='$imgSocial' style=' color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;' target='_blank'>
+                                    $txtSocial
                                 </a>
                             </p>
                             <!--<p style=' color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;'>
@@ -159,6 +158,6 @@
     }
 
     // init the wordpress hooks
-    add_shortcode('instagram_embed_photo_wp', 'nixInstagramEmbedPhotoWp::init');
-    add_action('admin_menu', 'nixInstagramEmbedPhotoWp::initAdminPage');
-    add_action('admin_init', 'nixInstagramEmbedPhotoWp::initSettings');
+    add_shortcode('social_embed_photo_wp', 'nixSocialEmbedPhotoWp::init');
+    add_action('admin_menu', 'nixSocialEmbedPhotoWp::initAdminPage');
+    add_action('admin_init', 'nixSocialEmbedPhotoWp::initSettings');
