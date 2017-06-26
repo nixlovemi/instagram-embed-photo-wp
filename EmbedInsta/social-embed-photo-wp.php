@@ -41,7 +41,7 @@
         }
 
         public static function showAdminPage(){
-            $pdfTokenPath = plugins_url("social-embed-photo-wp/How-create-an-instagram-app-and-get-the-access-token.pdf");
+            $pdfTokenPath = plugins_url("social-embed-photo-wp/How-create-an-instagram-app-and-get-the-access-token.pdf", dirname(__FILE__));
             ?>
 
             <div class="wrap">
@@ -98,13 +98,8 @@
             $arrSocial = $_SESSION["arrSocial"];
 
             if(!is_array($arrSocial) || count($arrSocial) <= 0){
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_URL,"https://api.instagram.com/v1/users/$userId/media/recent/?access_token=$instaToken&count=1");
-                $result=curl_exec($ch);
-                curl_close($ch);
-
+                $response = wp_remote_get("https://api.instagram.com/v1/users/$userId/media/recent/?access_token=$instaToken&count=1");
+                $result  = wp_remote_retrieve_body( $response );
                 $arrResp = json_decode($result, true);
 
                 $urlImgSocial = (isset($arrResp["data"][0]["images"]["standard_resolution"]["url"])) ? $arrResp["data"][0]["images"]["standard_resolution"]["url"] : "";
