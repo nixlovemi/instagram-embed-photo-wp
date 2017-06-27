@@ -4,7 +4,7 @@ Donate link: https://about.me/leandro.nix
 Tags: social, photo, shortcode
 Requires at least: 4.6
 Tested up to: 4.7
-Stable tag: trunk
+Stable tag: 0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,12 +35,12 @@ You just need to tell the plugin two informations: your instagram's user ID and 
 
 == Changelog ==
 
-= 1.0 =
+= 0.1 =
 * The plugin come to life =)
 
 == Upgrade Notice ==
 
-= 1.0 =
+= 0.1 =
 The first version of the plugin. Just install and use it.
 
 == Screenshots ==
